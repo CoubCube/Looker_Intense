@@ -30,6 +30,12 @@ view: d_supplier {
     primary_key: yes
     sql: ${TABLE}."S_SUPPKEY" ;;
   }
+  dimension: cohort_of_suppliers_according_to_account_balance {
+    type: bin
+    bins: [0, 3000, 5000, 7000]
+    style: relational
+    sql: ${s_acctbal} ;;
+  }
   measure: count {
     type: count
     drill_fields: [s_name]

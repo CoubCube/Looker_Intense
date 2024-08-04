@@ -72,6 +72,7 @@ view: f_lineitems {
   dimension: l_shipmode {
     type: string
     sql: ${TABLE}."L_SHIPMODE" ;;
+    drill_fields: [d_supplier.s_acctbal, d_supplier.s_region]
   }
   dimension: l_shippriority {
     type: number
@@ -144,12 +145,14 @@ view: f_lineitems {
     description: "The total supply cost of items."
   }
   measure: total_gross_margin_amount {
+    type: number
     sql: ${total_gross_revenue} - ${total_cost} ;;
     value_format_name: decimal_2
     label: "Total Gross Margin Amount"
     description: "The total gross margin amount calculated as total gross revenue minus total cost."
   }
   measure: gross_margin_percentage {
+    type: number
     sql: ${total_gross_margin_amount} / ${total_gross_revenue} ;;
     value_format_name: percent_2
     label: "Gross Margin Percentage"
@@ -172,6 +175,7 @@ view: f_lineitems {
     description: "The total number of items sold."
   }
   measure: item_return_value {
+    type: number
     sql: ${number_of_items_returned} / ${total_number_of_items_sold} ;;
     value_format_name: percent_2
     label: "Item Return Value"
@@ -184,6 +188,7 @@ view: f_lineitems {
     description: "The total number of distinct customers."
   }
   measure: average_spend_per_customer {
+    type: number
     sql: ${total_sales_price} / ${total_number_of_customers} ;;
     value_format_name: decimal_2
     label: "Average Spend per Customer"

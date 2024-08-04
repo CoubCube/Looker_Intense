@@ -10,6 +10,7 @@ view: d_dates {
   }
   dimension: datekey {
     type: number
+    primary_key: yes
     sql: ${TABLE}."DATEKEY" ;;
   }
   dimension: day_of_week {
@@ -35,6 +36,10 @@ view: d_dates {
   dimension: year {
     type: number
     sql: ${TABLE}."YEAR" ;;
+  }
+  dimension: day_num {
+    type: number
+    sql: EXTRACT(DAY FROM ${TABLE}."DATE_VAL") ;;
   }
   measure: count {
     type: count

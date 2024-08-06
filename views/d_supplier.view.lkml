@@ -14,7 +14,7 @@ view: d_supplier {
     sql: ${TABLE}."S_NAME" ;;
     link: {
       label: "Search Supplier on Google"
-      url: "https://www.google.com/search?q={{s_name}}"
+      url: "https://www.google.com/search?q={{ value | url_encode }}"
     }
   }
   dimension: s_nation {

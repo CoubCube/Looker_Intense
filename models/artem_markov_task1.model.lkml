@@ -89,6 +89,22 @@ explore: optimization_test {
     relationship: many_to_one
   }
 }
+
+# Place in `artem_markov_task1` model
+
+explore: +optimization_test {
+  aggregate_table: rollup__l_orderkey {
+    query: {
+      dimensions: [l_orderkey]
+      measures: [number_of_items_returned, total_number_of_items_sold]
+    }
+
+    materialization: {
+      datagroup_trigger: optimization_test_datagroup
+    }
+  }
+}
+
 datagroup: optimization_test_datagroup {
   max_cache_age: "24 hours"
   interval_trigger: "168 hours"

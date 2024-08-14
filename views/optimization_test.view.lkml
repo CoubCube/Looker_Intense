@@ -1,4 +1,4 @@
-view: optimization_test {
+view: optimization__test {
   derived_table: {
     sql: SELECT
             L_AVAILQTY,

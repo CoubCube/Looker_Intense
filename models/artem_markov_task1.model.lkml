@@ -50,30 +50,30 @@ explore: f_lineitems {
   }
 }
 
-explore: optimization_test {
+explore: optimization__test {
   label: "Optimization Test"
 
   join: d_supplier {
     type: left_outer
-    sql_on: ${optimization_test.l_suppkey} = ${d_supplier.s_suppkey} ;;
+    sql_on: ${optimization__test.l_suppkey} = ${d_supplier.s_suppkey} ;;
     relationship: many_to_one
   }
 
   join: d_part {
     type: left_outer
-    sql_on: ${optimization_test.l_partkey} = ${d_part.p_partkey} ;;
+    sql_on: ${optimization__test.l_partkey} = ${d_part.p_partkey} ;;
     relationship: many_to_one
   }
 
   join: d_customer {
     type: left_outer
-    sql_on: ${optimization_test.l_custkey} = ${d_customer.c_custkey} ;;
+    sql_on: ${optimization__test.l_custkey} = ${d_customer.c_custkey} ;;
     relationship: many_to_one
   }
 
   join: date_bridge {
     type: left_outer
-    sql_on: ${optimization_test.l_commitdatekey} = ${date_bridge.l_commitdatekey} ;;
+    sql_on: ${optimization__test.l_commitdatekey} = ${date_bridge.l_commitdatekey} ;;
     relationship: many_to_one
   }
 
@@ -85,14 +85,14 @@ explore: optimization_test {
 
   join: supplier_metrics {
     type: left_outer
-    sql_on: ${optimization_test.l_suppkey} = ${supplier_metrics.supplier_id} ;;
+    sql_on: ${optimization__test.l_suppkey} = ${supplier_metrics.supplier_id} ;;
     relationship: many_to_one
   }
 }
 
 # Place in `artem_markov_task1` model
 
-explore: +optimization_test {
+explore: +optimization__test {
   aggregate_table: rollup__l_orderkey {
     query: {
       dimensions: [l_orderkey]
@@ -108,5 +108,5 @@ explore: +optimization_test {
 datagroup: optimization_test_datagroup {
   max_cache_age: "24 hours"
   interval_trigger: "168 hours"
-  sql_trigger: SELECT * FROM optimization_test ;;
+  sql_trigger: SELECT * FROM optimization__test ;;
 }

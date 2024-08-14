@@ -29,6 +29,10 @@ view: d_customer {
   dimension: c_region {
     type: string
     sql: ${TABLE}."C_REGION" ;;
+    link: {
+      label: "Check on Summary Dashboard Target"
+      url: "https://epam.cloud.looker.com/dashboards/306?Region={{value}}"
+    }
   }
   measure: count {
     type: count

@@ -12,6 +12,7 @@ datagroup: artem_markov_task1_default_datagroup {
 persist_with: artem_markov_task1_default_datagroup
 
 explore: f_lineitems {
+  label: "Order Items"
   join: d_supplier {
     type: left_outer
     sql_on: ${f_lineitems.l_suppkey} = ${d_supplier.s_suppkey} ;;
@@ -47,4 +48,49 @@ explore: f_lineitems {
     sql_on: ${f_lineitems.l_suppkey} = ${supplier_metrics.supplier_id} ;;
     relationship: many_to_one
   }
+}
+
+explore: optimization_test {
+  label: "Optimization Test"
+
+  join: d_supplier {
+    type: left_outer
+    sql_on: ${optimization_test.l_suppkey} = ${d_supplier.s_suppkey} ;;
+    relationship: many_to_one
+  }
+
+  join: d_part {
+    type: left_outer
+    sql_on: ${optimization_test.l_partkey} = ${d_part.p_partkey} ;;
+    relationship: many_to_one
+  }
+
+  join: d_customer {
+    type: left_outer
+    sql_on: ${optimization_test.l_custkey} = ${d_customer.c_custkey} ;;
+    relationship: many_to_one
+  }
+
+  join: date_bridge {
+    type: left_outer
+    sql_on: ${optimization_test.l_commitdatekey} = ${date_bridge.l_commitdatekey} ;;
+    relationship: many_to_one
+  }
+
+  join: d_dates {
+    type: left_outer
+    sql_on: ${date_bridge.datekey} = ${d_dates.datekey} ;;
+    relationship: many_to_one
+  }
+
+  join: supplier_metrics {
+    type: left_outer
+    sql_on: ${optimization_test.l_suppkey} = ${supplier_metrics.supplier_id} ;;
+    relationship: many_to_one
+  }
+}
+datagroup: optimization_test_datagroup {
+  max_cache_age: "24 hours"
+  interval_trigger: "168 hours"
+  sql_trigger: SELECT * FROM optimization_test ;;
 }

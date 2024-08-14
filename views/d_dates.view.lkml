@@ -45,4 +45,39 @@ view: d_dates {
     type: count
     drill_fields: [month_name]
   }
+  dimension: date_group {
+    type: date
+    sql:
+    CASE
+      WHEN {% parameter granularity %} = 'year' THEN DATE_TRUNC('YEAR', ${TABLE}.date_val)
+      WHEN {% parameter granularity %} = 'quarter' THEN DATE_TRUNC('QUARTER', ${TABLE}.date_val)
+      WHEN {% parameter granularity %} = 'month' THEN DATE_TRUNC('MONTH', ${TABLE}.date_val)
+      ELSE DATE_TRUNC('YEAR', ${TABLE}.date_val)
+    END ;;
+  }
+  parameter: granularity {
+    type: string
+    allowed_value: {
+      label: "Yearly"
+      value: "year"
+    }
+    allowed_value: {
+      label: "Quarterly"
+      value: "quarter"
+    }
+    allowed_value: {
+      label: "Monthly"
+      value: "month"
+    }
+    default_value: "year"
+  }
+  measure: dynamic_title {
+    type: string
+    sql:
+    CASE
+      WHEN {% parameter granularity %} = 'year' THEN 'Yearly Gross Margin Trends'
+      WHEN {% parameter granularity %} = 'quarter' THEN 'Quarterly Gross Margin Trends'
+      ELSE 'Monthly Gross Margin Trends'
+    END ;;
+  }
 }

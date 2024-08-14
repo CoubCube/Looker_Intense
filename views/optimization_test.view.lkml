@@ -22,7 +22,6 @@ view: optimization_test {
             L_SHIPPRIORITY,
             L_SUPPKEY,
             L_SUPPLYCOST,
-            L_TAX,
             L_TOTALPRICE
           FROM DATA_MART.F_LINEITEMS ;;
     datagroup_trigger: optimization_test_datagroup
